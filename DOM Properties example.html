@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Properties Example</title>
+    <style>
+        .highlight {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="main-heading">Welcome to the DOM Properties Example</h1>
+    <p class="intro">This is an introductory paragraph.</p>
+    <button id="inspect-button">Inspect Elements</button>
+
+    <script>
+        document.getElementById('inspect-button').addEventListener('click', () => {
+            const heading = document.getElementById('main-heading');
+            
+            // Log the element's id
+            console.log('ID:', heading.id);
+            console.dir(heading.id);
+
+            // Add a new class to the heading
+            heading.classList.add('highlight');
+            console.log('Class List after adding highlight:', heading.classList);
+            console.dir(heading.classList);
+
+            // Change the text content
+            heading.innerText = 'Updated Heading';
+            console.log('Inner Text:', heading.innerText);
+            console.dir(heading.innerText);
+
+            // Set a new data attribute
+            heading.dataset.example = 'sample';
+            console.log('Data attribute (dataset.example):', heading.dataset.example);
+            console.dir(heading.dataset);
+
+            // Log the outer HTML
+            console.log('Outer HTML:', heading.outerHTML);
+            console.dir(heading.outerHTML);
+
+            // Access and modify the style property
+            heading.style.color = 'blue';
+            console.log('Inline style (color):', heading.style.color);
+            console.dir(heading.style);
+
+            // Log the text content
+            console.log('Text Content:', heading.textContent);
+            console.dir(heading.textContent);
+
+            // Log the parent element
+            console.log('Parent Element:', heading.parentElement);
+            console.dir(heading.parentElement);
+
+            // Log all child nodes
+            heading.childNodes.forEach(node => {
+                console.log('Child Node:', node);
+                console.dir(node);
+            });
+
+            // Log attributes
+            console.log('Attributes:', heading.attributes);
+            console.dir(heading.attributes);
+
+            // Log baseURI
+            console.log('Base URI:', heading.baseURI);
+            console.dir(heading.baseURI);
+
+            // Log innerHTML
+            console.log('Inner HTML:', heading.innerHTML);
+            console.dir(heading.innerHTML);
+
+            // Log className
+            console.log('Class Name:', heading.className);
+            console.dir(heading.className);
+
+            // Log isConnected
+            console.log('Is Connected:', heading.isConnected);
+            console.dir(heading.isConnected);
+
+            // Log clientHeight
+            console.log('Client Height:', heading.clientHeight);
+            console.dir(heading.clientHeight);
+
+            // Log offsetHeight
+            console.log('Offset Height:', heading.offsetHeight);
+            console.dir(heading.offsetHeight);
+
+            // Log outerHTML
+            console.log('Outer HTML:', heading.outerHTML);
+            console.dir(heading.outerHTML);
+
+            // Log tagName
+            console.log('Tag Name:', heading.tagName);
+            console.dir(heading.tagName);
+
+            // Log nextElementSibling
+            console.log('Next Element Sibling:', heading.nextElementSibling);
+            console.dir(heading.nextElementSibling);
+
+            // Log previousElementSibling
+            console.log('Previous Element Sibling:', heading.previousElementSibling);
+            console.dir(heading.previousElementSibling);
+
+            // Log scrollWidth
+            console.log('Scroll Width:', heading.scrollWidth);
+            console.dir(heading.scrollWidth);
+        });
+    </script>
+</body>
+</html>
