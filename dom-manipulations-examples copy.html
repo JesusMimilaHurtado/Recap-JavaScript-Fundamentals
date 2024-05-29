@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM Manipulation Exercises</title>
+</head>
+
+<body>
+  <div id="myName">Jesus Juan Mimila Hurtado </div>
+  <div class="color">My First color class</div>
+  <div class="color">My Second color class</div>
+  <button onclick="selectElements()">Select Elements</button>
+  <button id="btn">Change text</button>
+  <button id="colorBtn">Change Color</button>
+  <script>
+
+    //declaring variables
+    const buttonChangeColor = document.getElementById('colorBtn')
+    const buttonChange = document.getElementById('btn');
+    const myNameElement = document.getElementById('myName');
+    const HTMLElementClassCollection = document.getElementsByClassName('color');
+
+    //setting event listeners
+      myNameElement.addEventListener('click', SayHI);
+
+      buttonChange.addEventListener('click', () => {
+        if (HTMLElementClassCollection[1].innerText === 'My Second color class') {
+          HTMLElementClassCollection[1].innerText = 'I changed my innerText'
+        }
+        else {
+          HTMLElementClassCollection[1].innerText = 'My Second color class'
+        }
+      });
+
+      buttonChangeColor.addEventListener('click', () => {
+        myNameElement.style.color = 'green'
+      })
+
+    //functions 
+    
+    function selectElements() {
+
+      console.log("First element selected", myNameElement);
+      console.log("All classes", HTMLElementClassCollection);
+      console.dir(HTMLElementClassCollection);
+
+    }
+    function SayHI() {
+      alert('hi');
+    }
+
+    //   function modifyElements() {
+    //   // textContent
+    //   const textElement = document.getElementById('text-element');
+    //   textElement.textContent = 'New text content';
+    //   console.log(textElement.textContent); // Outputs: 'New text content'
+    //   // innerHTML
+    //   const htmlElement = document.getElementById('html-element');
+    //   htmlElement.innerHTML = '<h1>New HTML content</h1>';
+    //   console.log(htmlElement.innerHTML); // Outputs: '<strong>New HTML content</strong>'
+    //   // style
+    //   const styledElement = document.getElementById('styled-element');
+    //   styledElement.style.color = 'blue';
+    //   console.log(styledElement.style.color); // Outputs: 'blue'
+    // }
+  </script>
+</body>
+
+</html>

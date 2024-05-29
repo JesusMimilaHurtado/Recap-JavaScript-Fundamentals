@@ -7,11 +7,31 @@
 </head>
 <body>
   <!-- Elements for selecting examples -->
-  <div id="example-id">Element with ID</div>
+  <!-- <div id="example-id">Element with ID</div>
   <div class="example-class">First element with class</div>
   <div class="example-class">Second element with class</div>
   <button onclick="selectElements()">Select Elements</button>
-  <hr>
+  <hr> -->
+
+  <div id="yourName">Jesus Juan Mimila Hurt</div>
+  <div class="color">My first color class</div>
+  <div class="color">My second color class</div>
+  <button onclick="selectElements()">Select Elements</button>
+
+  <script>
+    function selectElements(){
+    const myFirstElement = document.getElementByID('example-id');
+    const HTMLElementCollection = document.getElementsByClassName('example-class')
+    const collectionOfDivs = document.getElementsByTagName('div');
+    console.log(HTMLElementCollection[0]);
+    HTMLElementCollection[0].addEventListener('click', SayHI)
+    console.log(collectionOfDivs);
+    }
+    function SayHi(){
+      alert('hi')
+    }
+  </script>
+
 
   <!-- Elements for modifying examples -->
   <div id="text-element">Original text content</div>

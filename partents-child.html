@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="child">
+        Child: <p id="child-message"> </p>
+        <hr>
+        <div id="parent">
+            Parent:
+            <p id="parent-message"> </p>
+            <hr>
+            <div id="grandparent">
+                <p>Grandparent:</p>
+                <p id="grandparent-message"> </p>
+            </div>
+        </div>
+    </div>
+        <script>
+            const grandparent = document.getElementById('grandparent-message');
+
+            const parentMessage = document.getElementById('parent-message');
+            const childMessage = document.getElementById('child-message');
+
+            grandparent.innerHTML += "<p> No regreses tarde, regresa temprano como la una o tres de la manana </p>";
+            parentMessage.innerHTML += " No vayas a regresar tarde ";
+            childMessage.innerHTML += " Voy a salir ";
+
+            // console.dir(grandparent);
+
+            // const newElement = document.createElement('p');
+            // newElement.id = 'Ron';
+            // newElement.textContent = 'Say hi to my second child, Ron.'
+            // childFromParent.appendChild(newElement);
+
+        </script>
+</body>
+
+</html>
