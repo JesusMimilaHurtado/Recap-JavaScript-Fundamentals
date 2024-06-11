@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch Pokémon Data</title>
+  <style>
+    .pokemon {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .pokemon canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+    }
+
+    .controls {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .controls button {
+      font-size: 24px;
+      margin: 5px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pokemon">
+    <h1 id="pokemon-name">Loading...</h1>
+    <canvas id="pokemon-canvas" width="300" height="300"></canvas>
+    <div class="controls">
+      <button id="left-arrow">←</button>
+      <button id="up-arrow">↑</button>
+      <button id="down-arrow">↓</button>
+      <button id="right-arrow">→</button>
+      <button id="attack">*****</button>
+    </div>
+  </div>
+
+  <script>
+    let pokemonImage;
+    let positionX = 100; // Starting horizontal position
+    let positionY = 100; // Starting vertical position
+
+    let attackImage;
+    let attackX = positionX + 100;
+    let attackY = positionY + 50;
+    let isAttacking = false;
+
+    async function fetchPokemonData(pokemonName)
+    {
+      try
+      {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+        const data = await response.json();
+        const pokemonInfo = {
+          name: data.name,
+          spriteURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQut3Us5Uk8no1rbf9-YSlzKbz2pNzNk85-NA&s",
+          spriteBackIMGURL: data.sprites.back_default,
+        };
+        return pokemonInfo;
+      } catch (error)
+      {
+        console.error("Error fetching the Pokémon data:", error);
+      }
+    }
+
+    function drawPokemon(ctx)
+    {
+      if (pokemonImage)
+      {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.drawImage(pokemonImage, positionX, positionY, 100, 100);
+        if (isAttacking && attackImage)
+        {
+          ctx.drawImage(attackImage, attackX, attackY, 30, 30);
+        }
+      }
+    }
+
+    function animateAttack(ctx)
+    {
+      if (isAttacking)
+      {
+        attackX += 5; // Move the attack to the right
+        if (attackX > ctx.canvas.width)
+        {
+          isAttacking = false; // Stop the attack when it moves out of the canvas
+        }
+        drawPokemon(ctx);
+        requestAnimationFrame(() => animateAttack(ctx));
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () =>
+    {
+      const canvas = document.getElementById('pokemon-canvas');
+      const ctx = canvas.getContext('2d');
+
+      fetchPokemonData('pikachu').then((pokemonInfo) =>
+      {
+        if (pokemonInfo)
+        {
+          document.getElementById('pokemon-name').textContent = pokemonInfo.name;
+          pokemonImage = new Image();
+          pokemonImage.src = pokemonInfo.spriteURL;
+          pokemonImage.onload = () =>
+          {
+            drawPokemon(ctx);
+          };
+          attackImage = new Image();
+          attackImage.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQut3Us5Uk8no1rbf9-YSlzKbz2pNzNk85-NA&s'; // Replace with your attack image URL
+          attackImage.onload = () =>
+          {
+            drawPokemon(ctx);
+          };
+        }
+      });
+
+      document.getElementById('up-arrow').addEventListener('click', () =>
+      {
+        positionY -= 30;
+        if (positionY < 0) positionY = 0;
+        drawPokemon(ctx);
+      });
+
+      document.getElementById('down-arrow').addEventListener('click', () =>
+      {
+        positionY += 30;
+        if (positionY + 100 > canvas.height) positionY = canvas.height - 100;
+        drawPokemon(ctx);
+      });
+
+      document.getElementById('left-arrow').addEventListener('click', () =>
+      {
+        positionX -= 30;
+        if (positionX < 0) positionX = 0;
+        drawPokemon(ctx);
+      });
+
+      document.getElementById('right-arrow').addEventListener('click', () =>
+      {
+        positionX += 30;
+        if (positionX + 100 > canvas.width) positionX = canvas.width - 100;
+        drawPokemon(ctx);
+      });
+
+      document.getElementById('attack').addEventListener('click', () =>
+      {
+        attackX = positionX + 100; // Start the attack from the Pokémon's current position
+        attackY = positionY + 80;
+        isAttacking = true;
+        animateAttack(ctx);
+      });
+    });
+  </script>
+</body>
+
+</html>
